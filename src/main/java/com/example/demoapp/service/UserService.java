@@ -2,7 +2,7 @@ package com.example.demoapp.service;
 
 
 import com.example.demoapp.model.entity.User;
-import com.example.demoapp.repo.UserRepo;
+import com.example.demoapp.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +13,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
     public Optional<User> getUser(Long id) {
-        return userRepo.findById(id);
+        return userRepository.findById(id);
     }
 
     public List<User> getUsers() {
-        return userRepo.findAll();
+        return userRepository.findAll();
     }
 }

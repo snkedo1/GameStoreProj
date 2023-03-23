@@ -9,8 +9,9 @@ import com.example.demoapp.model.entity.Game;
 import com.example.demoapp.model.entity.User;
 import com.example.demoapp.repo.CartRepo;
 import com.example.demoapp.repo.GameRepo;
-import com.example.demoapp.repo.UserRepo;
+import com.example.demoapp.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class CartServiceImpl {
 
     private final CartRepo cartRepo;
     private final GameRepo gameRepo;
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
     public List<CartResponseDto> getAllCarts() {
         return cartRepo.findAll().stream()
@@ -33,7 +34,8 @@ public class CartServiceImpl {
     public CartResponseDto addItemsToCart(List<GameRequestDto> items, Long cartId) {
         Cart cart = cartRepo.findById(cartId)
                 .orElse(new Cart());
-        User dorin = userRepo.findByNameIsIgnoreCase("dorin");
+        UserDetailsImpl principal = (UserDetailsImpl)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User dorin = userRepository.findByUsernameIsIgnoreCase(principal.getUsername());
         cart.setUser(dorin);
         items.forEach(item -> cart.getItems().add(createCartItem(cart, item)));
         Cart updatedCart = cartRepo.save(cart);
@@ -49,10 +51,20 @@ public class CartServiceImpl {
         return itemEntity;
     }
 
+    public CartResponseDto removeCartItem(Long cartId,Long cartItemId){
+        Cart cart=cartRepo.findById(cartId).orElseThrow(()->new RuntimeException("Cant find cart with this id"));
+        CartItem item=cart.getItems().stream().filter(cartItem -> cartItem.getId().equals(cartItemId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Could not find item with ID: " + cartItemId));
+        cart.getItems().remove(item);
+        cartRepo.save(cart);
+        return mapToResponseDto(cart);
+    }
+
     private CartResponseDto mapToResponseDto(Cart cartEntity) {
         CartResponseDto response = new CartResponseDto();
         response.setCartId(cartEntity.getId());
-        response.setOwner(cartEntity.getUser().getName());
+        response.setOwner(cartEntity.getUser().getUsername());
         response.setGames(cartEntity.getItems().stream()
                 .map(item -> {
                     var itemResponseDto = new ItemResponseDto();

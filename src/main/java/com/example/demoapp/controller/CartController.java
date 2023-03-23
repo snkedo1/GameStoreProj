@@ -24,4 +24,8 @@ public class CartController {
     public CartResponseDto addItemsToCart(@RequestBody List<GameRequestDto> items, @PathVariable Long cartId) {
         return cartService.addItemsToCart(items, cartId);
     }
+    @DeleteMapping("/delete/{cartId}/{itemId}")
+    public CartResponseDto deleteItemFromCart(@PathVariable Long cartId, @PathVariable Long itemId){
+        return cartService.removeCartItem(cartId,itemId);
+    }
 }
