@@ -1,7 +1,6 @@
 package com.example.demoapp.service;
 
 import com.example.demoapp.model.dto.request.GameRequestDto;
-import com.example.demoapp.model.dto.request.UpdateStockForGamesRequestDto;
 import com.example.demoapp.model.dto.response.GameResponseDto;
 import com.example.demoapp.model.entity.Game;
 import com.example.demoapp.model.entity.Genre;
@@ -10,11 +9,9 @@ import com.example.demoapp.repo.GameRepo;
 import com.example.demoapp.repo.GenreRepo;
 import com.example.demoapp.repo.PublisherRepo;
 import com.example.demoapp.service.contract.GameService;
-import com.example.demoapp.service.contract.StockUpdateRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
@@ -35,18 +32,9 @@ public class GameServiceImpl implements GameService {
                 .collect(toList());
     }
 
-    @Override
-    public void updateStocks(StockUpdateRequest stockUpdateRequest) {
-        for (UpdateStockForGamesRequestDto request : stockUpdateRequest.updateStockRequests()) {
-            Game game = gameRepo.findByNameIs(request.getGame())
-                    .orElseThrow(() -> new RuntimeException("Something went wrong!"));
-            game.decreaseStock(request.getQuantity());;
-            gameRepo.save(game);
-        }
-    }
     public GameResponseDto buyGame(Long id){
         Game game= gameRepo.findById(id).orElseThrow(()->new RuntimeException("Invalid game"));
-        int updatedStock=game.decreaseStock(1);
+        int updatedStock=game.getStock()-1;
         game.setStock(updatedStock);
         Game saveGame=gameRepo.save(game);
         return mapToDto(saveGame);

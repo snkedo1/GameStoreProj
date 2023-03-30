@@ -49,7 +49,6 @@ public class Bootstrapper implements ApplicationListener<ApplicationReadyEvent> 
         Game ac = new Game();
         ac.setName("AC");
         ac.setStock(12);
-        ac.decreaseStock(1);
         ac.setPrice(5.0);
         return ac;
     }

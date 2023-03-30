@@ -1,0 +1,89 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.my.groupid",
+    "module": "my-artifact",
+    "version": "1.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.6.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "my-artifact-1.0-SNAPSHOT-plain.jar",
+          "url": "my-artifact-1.0-SNAPSHOT-plain.jar",
+          "size": 48001,
+          "sha512": "6e02f1439784452b461a204b799075708682713ca756dd1525de4e0f1b48fc6a977655ca29076ebf590124f913dcf80491843a940fb6263fa1920106b945b8a5",
+          "sha256": "7ae79cc025f7a7cda219f4b16fc9d3de39cff04038a6bfdc736be1efd1cc6cc6",
+          "sha1": "099b85fae6586a435f34aa351949f5aa211d09d1",
+          "md5": "41671d380d68bd4a58bc9e822db1f646"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-data-jpa"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-web"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-validation"
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-impl",
+          "version": {
+            "requires": "0.11.5"
+          }
+        },
+        {
+          "group": "com.h2database",
+          "module": "h2"
+        },
+        {
+          "group": "org.postgresql",
+          "module": "postgresql"
+        }
+      ],
+      "files": [
+        {
+          "name": "my-artifact-1.0-SNAPSHOT-plain.jar",
+          "url": "my-artifact-1.0-SNAPSHOT-plain.jar",
+          "size": 48001,
+          "sha512": "6e02f1439784452b461a204b799075708682713ca756dd1525de4e0f1b48fc6a977655ca29076ebf590124f913dcf80491843a940fb6263fa1920106b945b8a5",
+          "sha256": "7ae79cc025f7a7cda219f4b16fc9d3de39cff04038a6bfdc736be1efd1cc6cc6",
+          "sha1": "099b85fae6586a435f34aa351949f5aa211d09d1",
+          "md5": "41671d380d68bd4a58bc9e822db1f646"
+        }
+      ]
+    }
+  ]
+}

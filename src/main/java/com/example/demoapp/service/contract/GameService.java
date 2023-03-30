@@ -8,5 +8,4 @@ public interface GameService {
 
     List<GameResponseDto> getAllGames();
 
-    void updateStocks(StockUpdateRequest stockUpdateRequest);
 }
